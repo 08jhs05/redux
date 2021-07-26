@@ -1,7 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+export const incrementAsync = amount => dispatch => {
+    setTimeout(() => {
+        dispatch(incrementByAmount(amount))
+    }, 1000)
+}
+
 export const counterSlice = createSlice({
     name: 'counter',
-    initialState: {value: 0},
+    initialState: {
+        value: 0
+    },
     reducers: {
         increment: state => { state.value += 1 },
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
@@ -12,5 +21,8 @@ export const counterSlice = createSlice({
         incrementByAmount: (state, action) => { state.value += action.payload }
     }
 });
-// Action creators are generated for each case reducer functionexport const { increment, decrement, incrementByAmount } = counterSlice.actions
-export default counterSlice.reducer
+
+// Action creators are generated for each case reducer function
+export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const selectCount = state => state.counter.value;
+export default counterSlice.reducer;
